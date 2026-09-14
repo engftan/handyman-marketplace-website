@@ -1,0 +1,25 @@
+{
+
+  "applinks": {
+
+    "apps": [],
+
+    "details": [
+
+      {
+
+        "appID": "97F56L5M86.com.myhandymanmarket.app",
+
+        "paths": [
+
+          "/community/post/*"
+
+        ]
+
+      }
+
+    ]
+
+  }
+
+}
