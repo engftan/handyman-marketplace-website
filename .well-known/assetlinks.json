@@ -1,0 +1,29 @@
+[
+
+  {
+
+    "relation": [
+
+      "delegate_permission/common.handle_all_urls"
+
+    ],
+
+    "target": {
+
+      "namespace": "android_app",
+
+      "package_name": "com.myhandymanmarket.app",
+
+      "sha256_cert_fingerprints": [
+
+        "80:E9:9D:CD:09:E0:DB:5B:88:4E:CB:5A:C7:FD:2E:10:8C:BC:07:00:BA:E2:54:56:8E:86:31:40:74:CC:41:75",
+
+        "19:24:B4:AF:5E:EA:AF:C1:8E:DA:B2:DF:58:02:10:CD:24:C1:CE:A3:36:F1:44:B2:2B:DF:5C:5A:DE:67:07:4F"
+
+      ]
+
+    }
+
+  }
+
+]
