@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+
+    name="viewport"
+
+    content="width=device-width, initial-scale=1.0"
+
+  >
+
+  <title>Handyman Marketplace Community</title>
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #f5f5f5;
+
+      color: #222;
+
+    }
+
+    .page {
+
+      max-width: 760px;
+
+      margin: 0 auto;
+
+      padding: 20px;
+
+    }
+
+    .header {
+
+      margin-bottom: 20px;
+
+    }
+
+    .header h1 {
+
+      margin-bottom: 6px;
+
+    }
+
+    .card {
+
+      background: white;
+
+      border-radius: 14px;
+
+      padding: 20px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    }
+
+    .author {
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+    }
+
+    .post-title {
+
+      font-size: 24px;
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+    }
+
+    .post-body {
+
+      font-size: 17px;
+
+      line-height: 1.5;
+
+      white-space: pre-wrap;
+
+    }
+
+    .media {
+
+      margin-top: 18px;
+
+    }
+
+    .media img,
+
+    .media video {
+
+      width: 100%;
+
+      max-height: 520px;
+
+      object-fit: contain;
+
+      border-radius: 12px;
+
+      margin-top: 12px;
+
+      background: #000;
+
+    }
+
+    .comments-title {
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+    }
+
+    .comment {
+
+      padding: 12px 0;
+
+      border-bottom: 1px solid #ddd;
+
+    }
+
+    .comment:last-child {
+
+      border-bottom: none;
+
+    }
+
+    .comment-author {
+
+      font-weight: bold;
+
+      margin-bottom: 5px;
+
+    }
+
+    .message {
+
+      text-align: center;
+
+      padding: 40px 10px;
+
+      color: #666;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="header">
+
+      <h1>Handyman Marketplace</h1>
+
+      <div>Community</div>
+
+    </div>
+
+    <div
+
+      id="loading"
+
+      class="card message"
+
+    >
+
+      Loading post...
+
+    </div>
+
+    <section
+
+      id="postCard"
+
+      class="card"
+
+      hidden
+
+    >
+
+      <div
+
+        id="author"
+
+        class="author"
+
+      ></div>
+
+      <div
+
+        id="postTitle"
+
+        class="post-title"
+
+      ></div>
+
+      <div
+
+        id="postBody"
+
+        class="post-body"
+
+      ></div>
+
+      <div
+
+        id="media"
+
+        class="media"
+
+      ></div>
+
+    </section>
+
+    <section
+
+      id="commentsCard"
+
+      class="card"
+
+      hidden
+
+    >
+
+      <div
+
+        id="commentsTitle"
+
+        class="comments-title"
+
+      >
+
+        Comments
+
+      </div>
+
+      <div id="comments"></div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const API_BASE =
+
+      'https://handyman-marketplace-backend-git-329826168306.asia-southeast1.run.app';
+
+    const params =
+
+      new URLSearchParams(window.location.search);
+
+    const postId =
+
+      params.get('id');
+
+    const loading =
+
+      document.getElementById('loading');
+
+    const postCard =
+
+      document.getElementById('postCard');
+
+    const commentsCard =
+
+      document.getElementById('commentsCard');
+
+    function showError(message) {
+
+      loading.textContent = message;
+
+    }
+
+    function isVideo(item) {
+
+      const type =
+
+        String(
+
+          item.media_type ||
+
+          item.mime_type ||
+
+          item.content_type ||
+
+          ''
+
+        ).toLowerCase();
+
+      const url =
+
+        String(
+
+          item.publicUrl || ''
+
+        ).toLowerCase();
+
+      return (
+
+        type.includes('video') ||
+
+        url.endsWith('.mp4') ||
+
+        url.endsWith('.mov') ||
+
+        url.endsWith('.webm')
+
+      );
+
+    }
+
+    function renderMedia(items) {
+
+      const container =
+
+        document.getElementById('media');
+
+      container.replaceChildren();
+
+      for (const item of items) {
+
+        if (!item.publicUrl) {
+
+          continue;
+
+        }
+
+        if (isVideo(item)) {
+
+          const video =
+
+            document.createElement('video');
+
+          video.src =
+
+            item.publicUrl;
+
+          video.controls = true;
+
+          video.playsInline = true;
+
+          container.appendChild(video);
+
+        } else {
+
+          const image =
+
+            document.createElement('img');
+
+          image.src =
+
+            item.publicUrl;
+
+          image.alt =
+
+            'Community post media';
+
+          container.appendChild(image);
+
+        }
+
+      }
+
+    }
+
+    function renderComments(comments) {
+
+      const container =
+
+        document.getElementById('comments');
+
+      container.replaceChildren();
+
+      if (!comments.length) {
+
+        const empty =
+
+          document.createElement('div');
+
+        empty.textContent =
+
+          'No comments yet.';
+
+        container.appendChild(empty);
+
+        return;
+
+      }
+
+      for (const comment of comments) {
+
+        const wrapper =
+
+          document.createElement('div');
+
+        wrapper.className =
+
+          'comment';
+
+        const author =
+
+          document.createElement('div');
+
+        author.className =
+
+          'comment-author';
+
+        author.textContent =
+
+          comment.author?.displayName ||
+
+          'Community Member';
+
+        const body =
+
+          document.createElement('div');
+
+        body.textContent =
+
+          comment.body || '';
+
+        wrapper.appendChild(author);
+
+        wrapper.appendChild(body);
+
+        container.appendChild(wrapper);
+
+      }
+
+    }
+
+    async function loadPage() {
+
+      if (!postId) {
+
+        showError(
+
+          'This Community post link is invalid.'
+
+        );
+
+        return;
+
+      }
+
+      try {
+
+        const postResponse =
+
+          await fetch(
+
+            `${API_BASE}/community/posts/${encodeURIComponent(postId)}`
+
+          );
+
+        if (!postResponse.ok) {
+
+          showError(
+
+            'This Community post could not be found.'
+
+          );
+
+          return;
+
+        }
+
+        const postData =
+
+          await postResponse.json();
+
+        const post =
+
+          postData.post;
+
+        document.getElementById(
+
+          'author'
+
+        ).textContent =
+
+          post.author?.displayName ||
+
+          'Community Member';
+
+        document.getElementById(
+
+          'postTitle'
+
+        ).textContent =
+
+          post.title || '';
+
+        document.getElementById(
+
+          'postBody'
+
+        ).textContent =
+
+          post.body || '';
+
+        renderMedia(
+
+          Array.isArray(post.media)
+
+            ? post.media
+
+            : []
+
+        );
+
+        loading.hidden = true;
+
+        postCard.hidden = false;
+
+        const commentsResponse =
+
+          await fetch(
+
+            `${API_BASE}/community/posts/${encodeURIComponent(postId)}/comments`
+
+          );
+
+        if (commentsResponse.ok) {
+
+          const commentsData =
+
+            await commentsResponse.json();
+
+          renderComments(
+
+            Array.isArray(commentsData.comments)
+
+              ? commentsData.comments
+
+              : []
+
+          );
+
+          commentsCard.hidden = false;
+
+        }
+
+      } catch (error) {
+
+        showError(
+
+          'Unable to load this Community post.'
+
+        );
+
+      }
+
+    }
+
+    loadPage();
+
+  </script>
+
+</body>
+
+</html>
