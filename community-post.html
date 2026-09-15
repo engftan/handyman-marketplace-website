@@ -162,6 +162,26 @@
 
     }
 
+.open-app-button {
+
+  display: block;
+
+  padding: 14px 18px;
+
+  text-align: center;
+
+  font-weight: bold;
+
+  text-decoration: none;
+
+  border-radius: 10px;
+
+  background: #1976d2;
+
+  color: white;
+
+}
+
   </style>
 
 </head>
@@ -233,6 +253,30 @@
       ></div>
 
     </section>
+
+<div
+
+      id="openAppSection"
+
+      class="card"
+
+      hidden
+
+    >
+
+   <a
+
+  id="openAppButton"
+
+  class="open-app-button"
+
+>  
+
+        Open in Handyman Marketplace
+
+      </a>
+
+    </div>
 
     <section
 
@@ -536,7 +580,21 @@
 
         postCard.hidden = false;
 
-        const commentsResponse =
+const openAppSection =
+
+  document.getElementById('openAppSection');
+
+const openAppButton =
+
+  document.getElementById('openAppButton');
+
+openAppButton.href =
+
+  `https://myhandymanmarket.com/community/post/${encodeURIComponent(postId)}`;
+
+openAppSection.hidden = false;
+
+       const commentsResponse =
 
           await fetch(
 
