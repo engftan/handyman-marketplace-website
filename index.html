@@ -1,631 +1,574 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta name="description" content="Handyman Marketplace - AI-powered help for repairs, DIY guidance and finding the right professional.">
-
   <title>Handyman Marketplace</title>
-
   <style>
-
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
-
       margin: 0;
-
       font-family: Arial, Helvetica, sans-serif;
-
       color: #17324d;
-
       background: #f7fbff;
-
       line-height: 1.6;
-
     }
-
     header {
-
       background: #ffffff;
-
       position: sticky;
-
       top: 0;
-
       z-index: 100;
-
       border-bottom: 1px solid #dceaf7;
-
     }
-
     .nav {
-
       max-width: 1180px;
-
       margin: auto;
-
       padding: 14px 22px;
-
       display: flex;
-
       justify-content: space-between;
-
       align-items: center;
-
       gap: 18px;
-
     }
-
     .brand {
-
       font-size: 22px;
-
       font-weight: 800;
-
       color: #0878d1;
-
     }
-
     select {
-
       padding: 9px 12px;
-
       border-radius: 10px;
-
       border: 1px solid #b7cee3;
-
       background: white;
-
       color: #17324d;
-
       font-size: 15px;
-
     }
-
     .hero {
-
       background: linear-gradient(145deg, #eaf6ff, #ffffff);
-
       text-align: center;
-
       padding: 85px 20px 75px;
-
     }
-
     .hero h1 {
-
       margin: 0 auto 18px;
-
       max-width: 900px;
-
       font-size: clamp(38px, 6vw, 68px);
-
       line-height: 1.08;
-
       color: #096fc0;
-
     }
-
     .hero p {
-
       max-width: 790px;
-
       margin: 0 auto 28px;
-
       font-size: 20px;
-
       color: #405b72;
-
     }
-
     .buttons {
-
       display: flex;
-
       justify-content: center;
-
       flex-wrap: wrap;
-
       gap: 12px;
-
     }
-
     .button {
-
       display: inline-block;
-
       padding: 13px 22px;
-
       border-radius: 12px;
-
       text-decoration: none;
-
       background: #0878d1;
-
       color: white;
-
       font-weight: 700;
-
     }
-
     .button.secondary {
-
       background: white;
-
       color: #0878d1;
-
       border: 2px solid #0878d1;
-
     }
-
     section { padding: 65px 20px; }
-
     .container {
-
       max-width: 1100px;
-
       margin: auto;
-
     }
-
     h2 {
-
       text-align: center;
-
       color: #096fc0;
-
       font-size: 34px;
-
       margin: 0 0 12px;
-
     }
-
     .intro {
-
       text-align: center;
-
       max-width: 780px;
-
       margin: 0 auto 38px;
-
       color: #587086;
-
       font-size: 18px;
-
     }
-
     .grid {
-
       display: grid;
-
       grid-template-columns: repeat(3, 1fr);
-
       gap: 20px;
-
     }
-
     .card {
-
       background: white;
-
       padding: 27px;
-
       border-radius: 18px;
-
       box-shadow: 0 7px 25px rgba(34, 93, 140, 0.09);
-
     }
-
     .card .icon {
-
       font-size: 32px;
-
       margin-bottom: 10px;
-
     }
-
     .card h3 {
-
       margin: 0 0 8px;
-
       color: #155f9b;
-
     }
-
     .alt { background: #edf7ff; }
-
     .steps { counter-reset: step; }
-
     .steps .card::before {
-
       counter-increment: step;
-
       content: counter(step);
-
       display: inline-flex;
-
       width: 38px;
-
       height: 38px;
-
       align-items: center;
-
       justify-content: center;
-
       border-radius: 50%;
-
       background: #0878d1;
-
       color: white;
-
       font-weight: bold;
-
       margin-bottom: 12px;
-
     }
-
     .premium {
-
       background: linear-gradient(135deg, #0878d1, #07558f);
-
       color: white;
-
       border-radius: 24px;
-
       padding: 45px;
-
       text-align: center;
-
     }
-
     .premium h2 { color: white; }
-
     .premium p {
-
       max-width: 800px;
-
       margin: 12px auto 0;
-
       font-size: 18px;
-
     }
-
     .download { text-align: center; }
-
     footer {
-
       background: #102d45;
-
       color: #d8e7f3;
-
       padding: 35px 20px;
-
       text-align: center;
-
     }
-
     footer a {
-
       color: white;
-
       margin: 0 10px;
-
     }
-
     @media (max-width: 800px) {
-
       .grid { grid-template-columns: 1fr; }
-
       .nav { align-items: flex-start; }
-
       .brand { font-size: 18px; }
-
       .hero { padding-top: 60px; }
-
       .premium { padding: 30px 20px; }
-
     }
-
   </style>
-
 </head>
-
 <body>
-
 <header>
-
   <div class="nav">
-
     <div class="brand"><img src="WhatsApp Image 2026-09-26 at 11.40.13 AM.jpeg" alt="Handyman Marketplace logo" style="width:42px;height:42px;border-radius:10px;object-fit:cover;vertical-align:middle;margin-right:10px;">Handyman Marketplace</div>
-
     <select id="language" onchange="setLanguage(this.value)" aria-label="Language">
-
       <option value="en">English</option>
-
       <option value="zh">中文</option>
-
       <option value="ms">Bahasa Melayu</option>
-
       <option value="id">Bahasa Indonesia</option>
-
       <option value="hi">हिन्दी</option>
-
       <option value="es">Español</option>
-
       <option value="pt">Português</option>
-
       <option value="ar">العربية</option>
-
       <option value="vi">Tiếng Việt</option>
-
       <option value="th">ไทย</option>
-
       <option value="ja">日本語</option>
-
       <option value="ko">한국어</option>
-
       <option value="fr">Français</option>
-
       <option value="de">Deutsch</option>
-
     </select>
-
   </div>
-
 </header>
 
 <main>
-
 <section class="hero">
-
   <h1 data-t="heroTitle">Smarter Home Repairs with AI</h1>
-
   <p data-t="heroText">Describe your problem by text or voice, add photos or video, and let Handyman Marketplace help you understand the problem, decide whether DIY is possible, or find the right professional.</p>
-
   <div class="buttons">
-
     <a class="button" href="#download" data-t="download">Download the App</a>
-
     <a class="button secondary" href="#how" data-t="howButton">See How It Works</a>
-
   </div>
-
 </section>
 
 <section id="how">
-
   <div class="container">
-
     <h2 data-t="howTitle">How It Works</h2>
-
     <p class="intro" data-t="howIntro">From a problem to a practical next step in minutes.</p>
-
     <div class="grid steps">
-
       <div class="card">
-
         <h3 data-t="step1Title">Describe the problem</h3>
-
         <p data-t="step1Text">Use text or voice and add a photo or video when useful.</p>
-
       </div>
-
       <div class="card">
-
         <h3 data-t="step2Title">Get AI guidance</h3>
-
         <p data-t="step2Text">Understand the likely problem, suitable service category, safety considerations and whether DIY may be possible.</p>
-
       </div>
-
       <div class="card">
-
         <h3 data-t="step3Title">Take action</h3>
-
         <p data-t="step3Text">Follow DIY guidance or find and compare suitable professionals.</p>
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section>
-
   <div class="container">
-
     <h2>See Handyman Marketplace in Action</h2>
-
     <p class="intro">AI assessment, provider search and Community — all in one app.</p>
-
     <div class="grid">
-
       <div class="card">
-
-        <img src="02_tablet_ai_assessment_2160x3840.png" alt="Handyman Marketplace AI Assessment" style="width:100%; border-radius:12px;">
-
+        <img src="02_tablet_ai_assessment_2160x3840.png" alt="Handyman Marketplace AI Assessment" style="width:100%;border-radius:12px;">
         <h3>AI Assessment</h3>
-
       </div>
-
       <div class="card">
-
-        <img src="03_tablet_provider_search_2160x3840.png" alt="Handyman Marketplace Provider Search" style="width:100%; border-radius:12px;">
-
+        <img src="03_tablet_provider_search_2160x3840.png" alt="Handyman Marketplace Provider Search" style="width:100%;border-radius:12px;">
         <h3>Find the Right Professional</h3>
-
       </div>
-
       <div class="card">
-
-        <img src="04_tablet_community_2160x3840.png" alt="Handyman Marketplace Community" style="width:100%; border-radius:12px;">
-
+        <img src="04_tablet_community_2160x3840.png" alt="Handyman Marketplace Community" style="width:100%;border-radius:12px;">
         <h3>Community</h3>
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section class="alt">
-
   <div class="container">
-
     <h2 data-t="featuresTitle">Built to Help You Make Better Decisions</h2>
-
     <p class="intro" data-t="featuresIntro">Useful information before you decide what to do or who to contact.</p>
-
     <div class="grid">
-
       <div class="card">
-
         <div class="icon">🤖</div>
-
         <h3 data-t="f1Title">AI Assessment</h3>
-
         <p data-t="f1Text">Use text, voice, photos and video to help assess repair and maintenance problems.</p>
-
       </div>
-
       <div class="card">
-
         <div class="icon">🛠️</div>
-
         <h3 data-t="f2Title">DIY Guidance</h3>
-
         <p data-t="f2Text">When appropriate, receive practical steps, tools and safety guidance.</p>
-
       </div>
-
       <div class="card">
-
         <div class="icon">👷</div>
-
         <h3 data-t="f3Title">Find the Right Professional</h3>
-
         <p data-t="f3Text">Identify the appropriate type of handyman or service provider for the job.</p>
-
       </div>
-
       <div class="card">
-
         <div class="icon">💰</div>
-
         <h3 data-t="f4Title">Market Price Guidance</h3>
-
         <p data-t="f4Text">Get AI-estimated market-price guidance to help you evaluate quotations.</p>
-
       </div>
-
       <div class="card">
-
         <div class="icon">⚖️</div>
-
         <h3 data-t="f5Title">Compare Providers</h3>
-
         <p data-t="f5Text">Compare useful provider information and quotations before making your choice.</p>
-
       </div>
-
       <div class="card">
-
         <div class="icon">🌍</div>
-
         <h3 data-t="f6Title">Community</h3>
-
         <p data-t="f6Text">Ask questions, share DIY tips, post before-and-after projects and read community reviews.</p>
-
       </div>
-
     </div>
-
   </div>
-
 </section>
 
 <section>
-
   <div class="container">
-
     <div class="premium">
-
       <h2 data-t="premiumTitle">Free to Start. More Power with Premium.</h2>
-
       <p data-t="premiumText">Start with preliminary assistance. Premium unlocks Advanced AI Assessment, detailed DIY guidance, provider information, comparison features and AI credits.</p>
-
     </div>
-
   </div>
-
 </section>
 
 <section id="download" class="download alt">
-
   <div class="container">
-
     <h2 data-t="downloadTitle">Get Handyman Marketplace</h2>
-
     <p class="intro" data-t="downloadText">Available now for Android. The iPhone and iPad app is coming soon.</p>
-
     <div class="buttons">
-
       <a class="button" href="https://play.google.com/store/apps/details?id=com.myhandymanmarket.app&amp;hl=en" data-t="google">Android — Google Play</a>
-
       <span class="button secondary" aria-disabled="true" data-t="apple">iPhone / iPad — Coming soon</span>
-
     </div>
-
   </div>
-
 </section>
-
 </main>
 
 <footer>
-
   <p>© 2026 Handyman Marketplace</p>
-
   <p>
-
     <a href="privacy-policy.html" data-t="privacy">Privacy Policy</a>
-
     <a href="delete-account.html" data-t="deleteAccount">Delete Account</a>
-
   </p>
-
 </footer>
 
 <script>
-
 const translations = {
-
 en: {
-
 heroTitle:"Smarter Home Repairs with AI",
-
 heroText:"Describe your problem by text or voice, add photos or video, and let Handyman Marketplace help you understand the problem, decide whether DIY is possible, or find the right professional.",
-
 download:"Download the App", howButton:"See How It Works",
-
 howTitle:"How It Works", howIntro:"From a problem to a practical next step in minutes.",
-
 step1Title:"Describe the problem", step1Text:"Use text or voice and add a photo or video when useful.",
-
 step2Title:"Get AI guidance", step2Text:"Understand the likely problem, suitable service category, safety considerations and whether DIY may be possible.",
-
 step3Title:"Take action", step3Text:"Follow DIY guidance or find and compare suitable professionals.",
+featuresTitle:"Built to Help You Make Better Decisions", featuresIntro:"Useful information before you decide what to do or who to contact.",
+f1Title:"AI Assessment", f1Text:"Use text, voice, photos and video to help assess repair and maintenance problems.",
+f2Title:"DIY Guidance", f2Text:"When appropriate, receive practical steps, tools and safety guidance.",
+f3Title:"Find the Right Professional", f3Text:"Identify the appropriate type of handyman or service provider for the job.",
+f4Title:"Market Price Guidance", f4Text:"Get AI-estimated market-price guidance to help you evaluate quotations.",
+f5Title:"Compare Providers", f5Text:"Compare useful provider information and quotations before making your choice.",
+f6Title:"Community", f6Text:"Ask questions, share DIY tips, post before-and-after projects and read community reviews.",
+premiumTitle:"Free to Start. More Power with Premium.", premiumText:"Start with preliminary assistance. Premium unlocks Advanced AI Assessment, detailed DIY guidance, provider information, comparison features and AI credits.",
+downloadTitle:"Get Handyman Marketplace", downloadText:"Available now for Android. The iPhone and iPad app is coming soon.",
+google:"Android — Google Play", apple:"iPhone / iPad — Coming soon", privacy:"Privacy Policy", deleteAccount:"Delete Account"
+},
+zh: {
+heroTitle:"用 AI 让家居维修更智能", heroText:"通过文字或语音描述问题，添加照片或视频，让 Handyman Marketplace 帮助您了解问题、判断是否适合自己动手，或寻找合适的专业人员。",
+download:"下载应用", howButton:"了解使用方法", howTitle:"使用方法", howIntro:"几分钟内从发现问题到获得实用的下一步建议。",
+step1Title:"描述问题", step1Text:"使用文字或语音，并在需要时添加照片或视频。",
+step2Title:"获取 AI 指导", step2Text:"了解可能的问题、合适的服务类别、安全注意事项以及是否适合自己动手。",
+step3Title:"采取行动", step3Text:"按照 DIY 指导操作，或寻找并比较合适的专业人员。",
+featuresTitle:"帮助您做出更明智的决定", featuresIntro:"在决定如何处理或联系谁之前获得有用的信息。",
+f1Title:"AI 评估", f1Text:"使用文字、语音、照片和视频帮助评估维修和保养问题。",
+f2Title:"DIY 指导", f2Text:"在适合的情况下获得实用步骤、工具和安全指导。",
+f3Title:"寻找合适的专业人员", f3Text:"确定适合该工作的维修人员或服务提供商类型。",
+f4Title:"市场价格参考", f4Text:"获得 AI 估算的市场价格参考，帮助您评估报价。",
+f5Title:"比较服务商", f5Text:"在作出选择之前比较服务商资料和报价。",
+f6Title:"社区", f6Text:"提问、分享 DIY 技巧、发布改造前后成果并查看社区评价。",
+premiumTitle:"免费开始，Premium 提供更多功能", premiumText:"先使用初步协助。Premium 解锁高级 AI 评估、详细 DIY 指导、服务商资料、比较功能和 AI 点数。",
+downloadTitle:"获取 Handyman Marketplace", downloadText:"Android 版本现已上线。iPhone 和 iPad 版本即将推出。",
+google:"Android — Google Play", apple:"iPhone / iPad — 即将推出", privacy:"隐私政策", deleteAccount:"删除账户"
+},
+ms: {
+heroTitle:"Pembaikan Rumah Lebih Pintar dengan AI", heroText:"Terangkan masalah melalui teks atau suara, tambah foto atau video, dan biarkan Handyman Marketplace membantu anda memahami masalah, menentukan sama ada DIY sesuai, atau mencari profesional yang tepat.",
+download:"Muat Turun Aplikasi", howButton:"Lihat Cara Ia Berfungsi", howTitle:"Cara Ia Berfungsi", howIntro:"Daripada masalah kepada langkah seterusnya yang praktikal dalam beberapa minit.",
+step1Title:"Terangkan masalah", step1Text:"Gunakan teks atau suara dan tambah foto atau video jika berguna.",
+step2Title:"Dapatkan panduan AI", step2Text:"Fahami masalah yang mungkin berlaku, kategori perkhidmatan yang sesuai, aspek keselamatan dan sama ada DIY mungkin sesuai.",
+step3Title:"Ambil tindakan", step3Text:"Ikuti panduan DIY atau cari dan bandingkan profesional yang sesuai.",
+featuresTitle:"Membantu Anda Membuat Keputusan Lebih Baik", featuresIntro:"Maklumat berguna sebelum anda memutuskan apa yang perlu dilakukan atau siapa yang perlu dihubungi.",
+f1Title:"Penilaian AI", f1Text:"Gunakan teks, suara, foto dan video untuk membantu menilai masalah pembaikan dan penyelenggaraan.",
+f2Title:"Panduan DIY", f2Text:"Jika sesuai, terima langkah praktikal, alat dan panduan keselamatan.",
+f3Title:"Cari Profesional yang Tepat", f3Text:"Kenal pasti jenis tukang atau penyedia perkhidmatan yang sesuai.",
+f4Title:"Panduan Harga Pasaran", f4Text:"Dapatkan anggaran harga pasaran AI untuk membantu menilai sebut harga.",
+f5Title:"Bandingkan Penyedia", f5Text:"Bandingkan maklumat dan sebut harga penyedia sebelum membuat pilihan.",
+f6Title:"Komuniti", f6Text:"Tanya soalan, kongsi tip DIY, projek sebelum dan selepas serta ulasan komuniti.",
+premiumTitle:"Mulakan Percuma. Lebih Banyak dengan Premium.", premiumText:"Mulakan dengan bantuan awal. Premium membuka Penilaian AI Lanjutan, panduan DIY terperinci, maklumat penyedia, perbandingan dan kredit AI.",
+downloadTitle:"Dapatkan Handyman Marketplace", downloadText:"Kini tersedia untuk Android. Aplikasi iPhone dan iPad akan datang.",
+google:"Android — Google Play", apple:"iPhone / iPad — Akan datang", privacy:"Dasar Privasi", deleteAccount:"Padam Akaun"
+},
+id: {
+heroTitle:"Perbaikan Rumah Lebih Cerdas dengan AI", heroText:"Jelaskan masalah melalui teks atau suara, tambahkan foto atau video, dan biarkan Handyman Marketplace membantu memahami masalah, menentukan apakah DIY memungkinkan, atau menemukan profesional yang tepat.",
+download:"Unduh Aplikasi", howButton:"Lihat Cara Kerjanya", howTitle:"Cara Kerjanya", howIntro:"Dari masalah menuju langkah praktis berikutnya dalam hitungan menit.",
+step1Title:"Jelaskan masalah", step1Text:"Gunakan teks atau suara dan tambahkan foto atau video bila berguna.",
+step2Title:"Dapatkan panduan AI", step2Text:"Pahami kemungkinan masalah, kategori layanan yang sesuai, pertimbangan keselamatan dan apakah DIY memungkinkan.",
+step3Title:"Ambil tindakan", step3Text:"Ikuti panduan DIY atau cari dan bandingkan profesional yang sesuai.",
+featuresTitle:"Membantu Anda Membuat Keputusan Lebih Baik", featuresIntro:"Informasi berguna sebelum menentukan tindakan atau siapa yang akan dihubungi.",
+f1Title:"Penilaian AI", f1Text:"Gunakan teks, suara, foto dan video untuk membantu menilai masalah perbaikan dan pemeliharaan.",
+f2Title:"Panduan DIY", f2Text:"Jika sesuai, dapatkan langkah praktis, alat dan panduan keselamatan.",
+f3Title:"Temukan Profesional yang Tepat", f3Text:"Identifikasi jenis tukang atau penyedia layanan yang tepat untuk pekerjaan.",
+f4Title:"Panduan Harga Pasar", f4Text:"Dapatkan perkiraan harga pasar dari AI untuk membantu mengevaluasi penawaran.",
+f5Title:"Bandingkan Penyedia", f5Text:"Bandingkan informasi dan penawaran penyedia sebelum memilih.",
+f6Title:"Komunitas", f6Text:"Ajukan pertanyaan, bagikan tips DIY, proyek sebelum dan sesudah serta ulasan komunitas.",
+premiumTitle:"Mulai Gratis. Lebih Banyak dengan Premium.", premiumText:"Mulai dengan bantuan awal. Premium membuka Penilaian AI Lanjutan, panduan DIY terperinci, informasi penyedia, fitur perbandingan dan kredit AI.",
+downloadTitle:"Dapatkan Handyman Marketplace", downloadText:"Kini tersedia untuk Android. Aplikasi iPhone dan iPad segera hadir.",
+google:"Android — Google Play", apple:"iPhone / iPad — Segera hadir", privacy:"Kebijakan Privasi", deleteAccount:"Hapus Akun"
+},
+hi: {
+heroTitle:"AI के साथ अधिक स्मार्ट घरेलू मरम्मत", heroText:"टेक्स्ट या आवाज़ से समस्या बताएं, फोटो या वीडियो जोड़ें और Handyman Marketplace से समस्या समझने, DIY संभव है या नहीं जानने या सही पेशेवर खोजने में मदद लें।",
+download:"ऐप डाउनलोड करें", howButton:"यह कैसे काम करता है", howTitle:"यह कैसे काम करता है", howIntro:"कुछ ही मिनटों में समस्या से व्यावहारिक अगले कदम तक।",
+step1Title:"समस्या बताएं", step1Text:"टेक्स्ट या आवाज़ का उपयोग करें और जरूरत होने पर फोटो या वीडियो जोड़ें।",
+step2Title:"AI मार्गदर्शन पाएं", step2Text:"संभावित समस्या, सही सेवा श्रेणी, सुरक्षा और DIY की संभावना समझें।",
+step3Title:"कार्रवाई करें", step3Text:"DIY मार्गदर्शन अपनाएं या उपयुक्त पेशेवर खोजें और तुलना करें।",
+featuresTitle:"बेहतर निर्णय लेने में आपकी मदद", featuresIntro:"क्या करना है या किससे संपर्क करना है, तय करने से पहले उपयोगी जानकारी।",
+f1Title:"AI आकलन", f1Text:"मरम्मत और रखरखाव की समस्याओं के आकलन के लिए टेक्स्ट, आवाज़, फोटो और वीडियो का उपयोग करें।",
+f2Title:"DIY मार्गदर्शन", f2Text:"उपयुक्त होने पर व्यावहारिक चरण, औज़ार और सुरक्षा मार्गदर्शन प्राप्त करें।",
+f3Title:"सही पेशेवर खोजें", f3Text:"काम के लिए उचित हैंडीमैन या सेवा प्रदाता का प्रकार पहचानें।",
+f4Title:"बाज़ार मूल्य मार्गदर्शन", f4Text:"कोटेशन का मूल्यांकन करने के लिए AI-अनुमानित बाज़ार मूल्य मार्गदर्शन पाएं।",
+f5Title:"प्रदाताओं की तुलना", f5Text:"चुनाव से पहले प्रदाताओं की जानकारी और कोटेशन की तुलना करें।",
+f6Title:"समुदाय", f6Text:"प्रश्न पूछें, DIY सुझाव साझा करें, पहले और बाद के प्रोजेक्ट तथा समीक्षाएं देखें।",
+premiumTitle:"मुफ़्त शुरू करें। Premium के साथ अधिक सुविधाएं।", premiumText:"प्रारंभिक सहायता से शुरू करें। Premium उन्नत AI आकलन, विस्तृत DIY मार्गदर्शन, प्रदाता जानकारी, तुलना सुविधाएं और AI क्रेडिट खोलता है।",
+downloadTitle:"Handyman Marketplace प्राप्त करें", downloadText:"अब Android के लिए उपलब्ध है। iPhone और iPad ऐप जल्द आ रहा है।",
+google:"Android — Google Play", apple:"iPhone / iPad — जल्द आ रहा है", privacy:"गोपनीयता नीति", deleteAccount:"खाता हटाएं"
+},
+es: {
+heroTitle:"Reparaciones del hogar más inteligentes con IA", heroText:"Describe el problema por texto o voz, añade fotos o vídeo y deja que Handyman Marketplace te ayude a entenderlo, decidir si puedes hacerlo tú mismo o encontrar al profesional adecuado.",
+download:"Descargar la aplicación", howButton:"Cómo funciona", howTitle:"Cómo funciona", howIntro:"Del problema al siguiente paso práctico en minutos.",
+step1Title:"Describe el problema", step1Text:"Usa texto o voz y añade una foto o vídeo cuando sea útil.",
+step2Title:"Obtén orientación de IA", step2Text:"Comprende el posible problema, la categoría de servicio adecuada, la seguridad y si el bricolaje puede ser posible.",
+step3Title:"Actúa", step3Text:"Sigue la guía de bricolaje o busca y compara profesionales adecuados.",
+featuresTitle:"Diseñado para ayudarte a tomar mejores decisiones", featuresIntro:"Información útil antes de decidir qué hacer o a quién contactar.",
+f1Title:"Evaluación con IA", f1Text:"Utiliza texto, voz, fotos y vídeo para ayudar a evaluar problemas de reparación y mantenimiento.",
+f2Title:"Guía de bricolaje", f2Text:"Cuando sea apropiado, recibe pasos prácticos, herramientas y orientación de seguridad.",
+f3Title:"Encuentra al profesional adecuado", f3Text:"Identifica el tipo de profesional o proveedor adecuado para el trabajo.",
+f4Title:"Orientación de precios de mercado", f4Text:"Obtén precios de mercado estimados por IA para evaluar presupuestos.",
+f5Title:"Compara proveedores", f5Text:"Compara información y presupuestos antes de elegir.",
+f6Title:"Comunidad", f6Text:"Haz preguntas, comparte consejos de bricolaje, proyectos antes y después y reseñas.",
+premiumTitle:"Empieza gratis. Más posibilidades con Premium.", premiumText:"Empieza con asistencia preliminar. Premium desbloquea evaluación avanzada con IA, guía detallada de bricolaje, información de proveedores, comparación y créditos de IA.",
+downloadTitle:"Obtén Handyman Marketplace", downloadText:"Ya disponible para Android. La aplicación para iPhone y iPad llegará pronto.",
+google:"Android — Google Play", apple:"iPhone / iPad — Próximamente", privacy:"Política de privacidad", deleteAccount:"Eliminar cuenta"
+},
+pt: {
+heroTitle:"Reparos domésticos mais inteligentes com IA", heroText:"Descreva o problema por texto ou voz, adicione fotos ou vídeo e deixe o Handyman Marketplace ajudar a entender o problema, decidir se o DIY é possível ou encontrar o profissional certo.",
+download:"Baixar o aplicativo", howButton:"Veja como funciona", howTitle:"Como funciona", howIntro:"Do problema ao próximo passo prático em minutos.",
+step1Title:"Descreva o problema", step1Text:"Use texto ou voz e adicione foto ou vídeo quando útil.",
+step2Title:"Receba orientação de IA", step2Text:"Entenda o provável problema, a categoria de serviço adequada, segurança e se o DIY pode ser possível.",
+step3Title:"Tome uma ação", step3Text:"Siga a orientação DIY ou encontre e compare profissionais adequados.",
+featuresTitle:"Feito para ajudar você a tomar melhores decisões", featuresIntro:"Informações úteis antes de decidir o que fazer ou quem contatar.",
+f1Title:"Avaliação por IA", f1Text:"Use texto, voz, fotos e vídeo para ajudar a avaliar problemas de reparo e manutenção.",
+f2Title:"Orientação DIY", f2Text:"Quando apropriado, receba passos práticos, ferramentas e orientações de segurança.",
+f3Title:"Encontre o profissional certo", f3Text:"Identifique o tipo adequado de profissional ou prestador para o trabalho.",
+f4Title:"Orientação de preço de mercado", f4Text:"Receba estimativas de preço de mercado por IA para avaliar orçamentos.",
+f5Title:"Compare prestadores", f5Text:"Compare informações e orçamentos antes de escolher.",
+f6Title:"Comunidade", f6Text:"Faça perguntas, compartilhe dicas DIY, projetos antes e depois e avaliações.",
+premiumTitle:"Comece grátis. Mais recursos com Premium.", premiumText:"Comece com assistência preliminar. Premium libera avaliação avançada por IA, orientação DIY detalhada, informações de prestadores, comparação e créditos de IA.",
+downloadTitle:"Obtenha Handyman Marketplace", downloadText:"Já disponível para Android. O aplicativo para iPhone e iPad estará disponível em breve.",
+google:"Android — Google Play", apple:"iPhone / iPad — Em breve", privacy:"Política de Privacidade", deleteAccount:"Excluir conta"
+},
+ar: {
+heroTitle:"إصلاحات منزلية أذكى باستخدام الذكاء الاصطناعي", heroText:"صِف المشكلة بالنص أو الصوت، وأضف صورًا أو فيديو، ودع Handyman Marketplace يساعدك على فهم المشكلة وتحديد إمكانية إصلاحها بنفسك أو العثور على المختص المناسب.",
+download:"تنزيل التطبيق", howButton:"اكتشف كيف يعمل", howTitle:"كيف يعمل", howIntro:"من المشكلة إلى الخطوة العملية التالية خلال دقائق.",
+step1Title:"صِف المشكلة", step1Text:"استخدم النص أو الصوت وأضف صورة أو فيديو عند الحاجة.",
+step2Title:"احصل على إرشادات الذكاء الاصطناعي", step2Text:"افهم المشكلة المحتملة وفئة الخدمة المناسبة واعتبارات السلامة وإمكانية الإصلاح بنفسك.",
+step3Title:"اتخذ الإجراء", step3Text:"اتبع إرشادات الإصلاح بنفسك أو ابحث عن المختصين المناسبين وقارن بينهم.",
+featuresTitle:"لمساعدتك على اتخاذ قرارات أفضل", featuresIntro:"معلومات مفيدة قبل أن تقرر ما يجب فعله أو بمن تتصل.",
+f1Title:"تقييم بالذكاء الاصطناعي", f1Text:"استخدم النص والصوت والصور والفيديو للمساعدة في تقييم مشكلات الإصلاح والصيانة.",
+f2Title:"إرشادات الإصلاح بنفسك", f2Text:"عند الملاءمة، احصل على خطوات عملية وأدوات وإرشادات سلامة.",
+f3Title:"اعثر على المختص المناسب", f3Text:"حدد نوع الفني أو مقدم الخدمة المناسب للعمل.",
+f4Title:"إرشادات أسعار السوق", f4Text:"احصل على تقديرات أسعار السوق بالذكاء الاصطناعي للمساعدة في تقييم عروض الأسعار.",
+f5Title:"قارن مقدمي الخدمة", f5Text:"قارن معلومات مقدمي الخدمة وعروض الأسعار قبل الاختيار.",
+f6Title:"المجتمع", f6Text:"اطرح الأسئلة وشارك نصائح الإصلاح والمشاريع قبل وبعد واقرأ تقييمات المجتمع.",
+premiumTitle:"ابدأ مجانًا. إمكانات أكبر مع Premium.", premiumText:"ابدأ بالمساعدة الأولية. يفتح Premium التقييم المتقدم بالذكاء الاصطناعي وإرشادات DIY التفصيلية ومعلومات مقدمي الخدمة والمقارنة ورصيد AI.",
+downloadTitle:"احصل على Handyman Marketplace", downloadText:"متوفر الآن لأجهزة Android. تطبيق iPhone وiPad قادم قريبًا.",
+google:"Android — Google Play", apple:"iPhone / iPad — قريبًا", privacy:"سياسة الخصوصية", deleteAccount:"حذف الحساب"
+},
+vi: {
+heroTitle:"Sửa chữa nhà thông minh hơn với AI", heroText:"Mô tả vấn đề bằng văn bản hoặc giọng nói, thêm ảnh hoặc video và để Handyman Marketplace giúp bạn hiểu vấn đề, xác định có thể tự sửa hay tìm đúng chuyên gia.",
+download:"Tải ứng dụng", howButton:"Xem cách hoạt động", howTitle:"Cách hoạt động", howIntro:"Từ vấn đề đến bước tiếp theo thiết thực chỉ trong vài phút.",
+step1Title:"Mô tả vấn đề", step1Text:"Dùng văn bản hoặc giọng nói và thêm ảnh hoặc video khi cần.",
+step2Title:"Nhận hướng dẫn AI", step2Text:"Hiểu vấn đề có thể xảy ra, loại dịch vụ phù hợp, an toàn và khả năng tự sửa.",
+step3Title:"Hành động", step3Text:"Làm theo hướng dẫn DIY hoặc tìm và so sánh chuyên gia phù hợp.",
+featuresTitle:"Giúp bạn đưa ra quyết định tốt hơn", featuresIntro:"Thông tin hữu ích trước khi quyết định làm gì hoặc liên hệ ai.",
+f1Title:"Đánh giá AI", f1Text:"Sử dụng văn bản, giọng nói, ảnh và video để hỗ trợ đánh giá vấn đề sửa chữa và bảo trì.",
+f2Title:"Hướng dẫn DIY", f2Text:"Khi phù hợp, nhận các bước thực tế, dụng cụ và hướng dẫn an toàn.",
+f3Title:"Tìm đúng chuyên gia", f3Text:"Xác định loại thợ hoặc nhà cung cấp dịch vụ phù hợp.",
+f4Title:"Hướng dẫn giá thị trường", f4Text:"Nhận ước tính giá thị trường bằng AI để đánh giá báo giá.",
+f5Title:"So sánh nhà cung cấp", f5Text:"So sánh thông tin và báo giá trước khi lựa chọn.",
+f6Title:"Cộng đồng", f6Text:"Đặt câu hỏi, chia sẻ mẹo DIY, dự án trước và sau và đánh giá cộng đồng.",
+premiumTitle:"Bắt đầu miễn phí. Nhiều tính năng hơn với Premium.", premiumText:"Bắt đầu với hỗ trợ sơ bộ. Premium mở khóa Đánh giá AI nâng cao, hướng dẫn DIY chi tiết, thông tin nhà cung cấp, tính năng so sánh và tín dụng AI.",
+downloadTitle:"Tải Handyman Marketplace", downloadText:"Đã có cho Android. Ứng dụng dành cho iPhone và iPad sẽ sớm ra mắt.",
+google:"Android — Google Play", apple:"iPhone / iPad — Sắp ra mắt", privacy:"Chính sách quyền riêng tư", deleteAccount:"Xóa tài khoản"
+},
+th: {
+heroTitle:"ซ่อมบ้านอย่างชาญฉลาดยิ่งขึ้นด้วย AI", heroText:"อธิบายปัญหาด้วยข้อความหรือเสียง เพิ่มรูปภาพหรือวิดีโอ และให้ Handyman Marketplace ช่วยทำความเข้าใจปัญหา พิจารณาว่าทำเองได้หรือไม่ หรือค้นหาผู้เชี่ยวชาญที่เหมาะสม",
+download:"ดาวน์โหลดแอป", howButton:"ดูวิธีการทำงาน", howTitle:"วิธีการทำงาน", howIntro:"จากปัญหาสู่ขั้นตอนถัดไปที่ใช้งานได้จริงภายในไม่กี่นาที",
+step1Title:"อธิบายปัญหา", step1Text:"ใช้ข้อความหรือเสียง และเพิ่มรูปภาพหรือวิดีโอเมื่อเป็นประโยชน์",
+step2Title:"รับคำแนะนำจาก AI", step2Text:"ทำความเข้าใจปัญหาที่เป็นไปได้ ประเภทบริการที่เหมาะสม ความปลอดภัย และความเป็นไปได้ในการทำเอง",
+step3Title:"ลงมือดำเนินการ", step3Text:"ทำตามคำแนะนำ DIY หรือค้นหาและเปรียบเทียบผู้เชี่ยวชาญที่เหมาะสม",
+featuresTitle:"ช่วยให้คุณตัดสินใจได้ดีขึ้น", featuresIntro:"ข้อมูลที่เป็นประโยชน์ก่อนตัดสินใจว่าจะทำอะไรหรือติดต่อใคร",
+f1Title:"การประเมินด้วย AI", f1Text:"ใช้ข้อความ เสียง รูปภาพ และวิดีโอเพื่อช่วยประเมินปัญหาการซ่อมและบำรุงรักษา",
+f2Title:"คำแนะนำ DIY", f2Text:"เมื่อเหมาะสม รับขั้นตอน เครื่องมือ และคำแนะนำด้านความปลอดภัย",
+f3Title:"ค้นหาผู้เชี่ยวชาญที่เหมาะสม", f3Text:"ระบุประเภทช่างหรือผู้ให้บริการที่เหมาะสมกับงาน",
+f4Title:"คำแนะนำราคาตลาด", f4Text:"รับราคาตลาดโดยประมาณจาก AI เพื่อช่วยประเมินใบเสนอราคา",
+f5Title:"เปรียบเทียบผู้ให้บริการ", f5Text:"เปรียบเทียบข้อมูลและใบเสนอราคาก่อนตัดสินใจ",
+f6Title:"ชุมชน", f6Text:"ถามคำถาม แชร์เคล็ดลับ DIY โครงการก่อนและหลัง และอ่านรีวิวจากชุมชน",
+premiumTitle:"เริ่มต้นฟรี เพิ่มความสามารถด้วย Premium", premiumText:"เริ่มด้วยความช่วยเหลือเบื้องต้น Premium ปลดล็อกการประเมิน AI ขั้นสูง คำแนะนำ DIY โดยละเอียด ข้อมูลผู้ให้บริการ การเปรียบเทียบ และเครดิต AI",
+downloadTitle:"รับ Handyman Marketplace", downloadText:"พร้อมใช้งานบน Android แล้ว แอปสำหรับ iPhone และ iPad จะเปิดให้ใช้งานเร็ว ๆ นี้",
+google:"Android — Google Play", apple:"iPhone / iPad — เร็ว ๆ นี้", privacy:"นโยบายความเป็นส่วนตัว", deleteAccount:"ลบบัญชี"
+},
+ja: {
+heroTitle:"AIでもっとスマートな住まいの修理", heroText:"テキストや音声で問題を説明し、写真や動画を追加すると、Handyman Marketplace が問題の理解、DIYが可能かどうかの判断、適切な専門業者探しをサポートします。",
+download:"アプリをダウンロード", howButton:"使い方を見る", howTitle:"使い方", howIntro:"問題の発見から実用的な次のステップまで数分で。",
+step1Title:"問題を説明", step1Text:"テキストまたは音声を使用し、必要に応じて写真や動画を追加します。",
+step2Title:"AIのガイダンスを取得", step2Text:"考えられる問題、適切なサービス分野、安全上の注意、DIYの可能性を確認します。",
+step3Title:"行動する", step3Text:"DIYガイドに従うか、適切な専門業者を検索・比較します。",
+featuresTitle:"より良い判断をサポート", featuresIntro:"何をするか、誰に連絡するかを決める前に役立つ情報を提供します。",
+f1Title:"AI診断", f1Text:"テキスト、音声、写真、動画を使って修理やメンテナンスの問題を評価します。",
+f2Title:"DIYガイド", f2Text:"適切な場合は、実践的な手順、工具、安全ガイドを提供します。",
+f3Title:"適切な専門業者を探す", f3Text:"作業に適した業者やサービス提供者の種類を特定します。",
+f4Title:"市場価格の目安", f4Text:"AIによる市場価格の推定を参考に見積もりを評価できます。",
+f5Title:"業者を比較", f5Text:"選択する前に業者情報や見積もりを比較できます。",
+f6Title:"コミュニティ", f6Text:"質問、DIYのヒント、ビフォーアフターのプロジェクト、レビューを共有できます。",
+premiumTitle:"無料でスタート。Premiumでもっと便利に。", premiumText:"まずは基本サポートから。Premiumでは高度なAI診断、詳細なDIYガイド、業者情報、比較機能、AIクレジットを利用できます。",
+downloadTitle:"Handyman Marketplaceを入手", downloadText:"Android 版は現在ご利用いただけます。iPhone・iPad 版は近日公開予定です。",
+google:"Android — Google Play", apple:"iPhone / iPad — 近日公開", privacy:"プライバシーポリシー", deleteAccount:"アカウントを削除"
+},
+ko: {
+heroTitle:"AI로 더 스마트한 집수리", heroText:"텍스트나 음성으로 문제를 설명하고 사진이나 동영상을 추가하면 Handyman Marketplace가 문제 이해, DIY 가능 여부 판단 또는 적합한 전문가 찾기를 도와드립니다.",
+download:"앱 다운로드", howButton:"이용 방법 보기", howTitle:"이용 방법", howIntro:"문제에서 실용적인 다음 단계까지 몇 분 안에.",
+step1Title:"문제 설명", step1Text:"텍스트 또는 음성을 사용하고 필요하면 사진이나 동영상을 추가하세요.",
+step2Title:"AI 안내 받기", step2Text:"가능한 문제, 적절한 서비스 유형, 안전 고려사항 및 DIY 가능성을 확인하세요.",
+step3Title:"실행하기", step3Text:"DIY 안내를 따르거나 적합한 전문가를 찾아 비교하세요.",
+featuresTitle:"더 나은 결정을 위한 도움", featuresIntro:"무엇을 할지 또는 누구에게 연락할지 결정하기 전에 유용한 정보를 제공합니다.",
+f1Title:"AI 평가", f1Text:"텍스트, 음성, 사진 및 동영상으로 수리와 유지관리 문제를 평가하는 데 도움을 받으세요.",
+f2Title:"DIY 안내", f2Text:"적절한 경우 실용적인 단계, 도구 및 안전 안내를 받으세요.",
+f3Title:"적합한 전문가 찾기", f3Text:"작업에 적합한 기술자 또는 서비스 제공자 유형을 확인하세요.",
+f4Title:"시장 가격 안내", f4Text:"AI가 추정한 시장 가격으로 견적을 평가하는 데 도움을 받으세요.",
+f5Title:"서비스 제공자 비교", f5Text:"선택하기 전에 제공자 정보와 견적을 비교하세요.",
+f6Title:"커뮤니티", f6Text:"질문하고 DIY 팁, 전후 프로젝트 및 커뮤니티 리뷰를 공유하세요.",
+premiumTitle:"무료로 시작하세요. Premium으로 더 많은 기능을.", premiumText:"기본 지원으로 시작하세요. Premium은 고급 AI 평가, 상세 DIY 안내, 제공자 정보, 비교 기능 및 AI 크레딧을 제공합니다.",
+downloadTitle:"Handyman Marketplace 받기", downloadText:"Android에서 지금 이용할 수 있습니다. iPhone 및 iPad 앱은 곧 출시됩니다.",
+google:"Android — Google Play", apple:"iPhone / iPad — 출시 예정", privacy:"개인정보 처리방침", deleteAccount:"계정 삭제"
+},
+fr: {
+heroTitle:"Des réparations domestiques plus intelligentes avec l'IA", heroText:"Décrivez le problème par texte ou par voix, ajoutez des photos ou une vidéo et laissez Handyman Marketplace vous aider à comprendre le problème, déterminer si le bricolage est possible ou trouver le bon professionnel.",
+download:"Télécharger l'application", howButton:"Voir comment ça marche", howTitle:"Comment ça marche", howIntro:"Du problème à la prochaine étape pratique en quelques minutes.",
+step1Title:"Décrivez le problème", step1Text:"Utilisez du texte ou votre voix et ajoutez une photo ou une vidéo si nécessaire.",
+step2Title:"Obtenez les conseils de l'IA", step2Text:"Comprenez le problème probable, la catégorie de service adaptée, les aspects de sécurité et si le bricolage est envisageable.",
+step3Title:"Passez à l'action", step3Text:"Suivez les conseils de bricolage ou recherchez et comparez des professionnels adaptés.",
+featuresTitle:"Conçu pour vous aider à prendre de meilleures décisions", featuresIntro:"Des informations utiles avant de décider quoi faire ou qui contacter.",
+f1Title:"Évaluation par IA", f1Text:"Utilisez texte, voix, photos et vidéo pour aider à évaluer les problèmes de réparation et d'entretien.",
+f2Title:"Conseils de bricolage", f2Text:"Lorsque cela convient, recevez des étapes pratiques, les outils nécessaires et des conseils de sécurité.",
+f3Title:"Trouvez le bon professionnel", f3Text:"Identifiez le type d'artisan ou de prestataire adapté au travail.",
+f4Title:"Indication des prix du marché", f4Text:"Obtenez une estimation des prix du marché par IA pour mieux évaluer les devis.",
+f5Title:"Comparez les prestataires", f5Text:"Comparez les informations et les devis avant de faire votre choix.",
+f6Title:"Communauté", f6Text:"Posez des questions, partagez des conseils de bricolage, des projets avant/après et consultez les avis.",
+premiumTitle:"Commencez gratuitement. Plus de possibilités avec Premium.", premiumText:"Commencez avec une assistance préliminaire. Premium débloque l'évaluation avancée par IA, des conseils DIY détaillés, les informations des prestataires, la comparaison et des crédits IA.",
+downloadTitle:"Obtenez Handyman Marketplace", downloadText:"Disponible dès maintenant sur Android. L’application pour iPhone et iPad arrive bientôt.",
+google:"Android — Google Play", apple:"iPhone / iPad — Bientôt disponible", privacy:"Politique de confidentialité", deleteAccount:"Supprimer le compte"
+},
+de: {
+heroTitle:"Intelligentere Reparaturen zu Hause mit KI", heroText:"Beschreiben Sie Ihr Problem per Text oder Sprache, fügen Sie Fotos oder Videos hinzu und lassen Sie Handyman Marketplace helfen, das Problem zu verstehen, DIY-Möglichkeiten zu prüfen oder den richtigen Fachmann zu finden.",
+download:"App herunterladen", howButton:"So funktioniert es", howTitle:"So funktioniert es", howIntro:"Vom Problem zum praktischen nächsten Schritt in wenigen Minuten.",
+step1Title:"Problem beschreiben", step1Text:"Verwenden Sie Text oder Sprache und fügen Sie bei Bedarf ein Foto oder Video hinzu.",
+step2Title:"KI-Unterstützung erhalten", step2Text:"Verstehen Sie das wahrscheinliche Problem, die passende Servicekategorie, Sicherheitsaspekte und ob DIY möglich sein könnte.",
+step3Title:"Handeln", step3Text:"Folgen Sie der DIY-Anleitung oder suchen und vergleichen Sie geeignete Fachleute.",
+featuresTitle:"Für bessere Entscheidungen entwickelt", featuresIntro:"Nützliche Informationen, bevor Sie entscheiden, was zu tun ist oder wen Sie kontaktieren.",
+f1Title:"KI-Bewertung", f1Text:"Nutzen Sie Text, Sprache, Fotos und Videos zur Bewertung von Reparatur- und Wartungsproblemen.",
+f2Title:"DIY-Anleitung", f2Text:"Erhalten Sie, wenn geeignet, praktische Schritte, Werkzeuge und Sicherheitshinweise.",
+f3Title:"Den richtigen Fachmann finden", f3Text:"Ermitteln Sie die passende Art von Handwerker oder Dienstleister für die Aufgabe.",
+f4Title:"Marktpreis-Orientierung", f4Text:"Erhalten Sie KI-geschätzte Marktpreise zur besseren Bewertung von Angeboten.",
+f5Title:"Anbieter vergleichen", f5Text:"Vergleichen Sie Anbieterinformationen und Angebote, bevor Sie sich entscheiden.",
+f6Title:"Community", f6Text:"Stellen Sie Fragen, teilen Sie DIY-Tipps, Vorher-Nachher-Projekte und lesen Sie Bewertungen.",
+premiumTitle:"Kostenlos starten. Mehr Möglichkeiten mit Premium.", premiumText:"Beginnen Sie mit grundlegender Unterstützung. Premium bietet erweiterte KI-Bewertung, detaillierte DIY-Anleitungen, Anbieterinformationen, Vergleichsfunktionen und KI-Guthaben.",
+downloadTitle:"Handyman Marketplace herunterladen", downloadText:"Jetzt für Android verfügbar. Die App für iPhone und iPad erscheint bald.",
+google:"Android — Google Play", apple:"iPhone / iPad — Demnächst verfügbar", privacy:"Datenschutzrichtlinie", deleteAccount:"Konto löschen"
+}
+};
 
-featuresTitle:"Built to Help You Make Better Decisions", featuresIntro:"Useful information before you decide what to
+function setLanguage(lang) {
+  const t = translations[lang] || translations.en;
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const key = el.getAttribute("data-t");
+    if (t[key]) el.textContent = t[key];
+  });
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  localStorage.setItem("hmp-language", lang);
+}
+
+const savedLanguage = localStorage.getItem("hmp-language") || "en";
+document.getElementById("language").value = savedLanguage;
+setLanguage(savedLanguage);
+</script>
+</body>
+</html>
