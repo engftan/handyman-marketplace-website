@@ -78,7 +78,637 @@
 
       padding: 9px 12px;
 
+      border-radius: 10px;<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Handyman Marketplace - AI-powered help for repairs, DIY guidance and finding the right professional.">
+
+  <title>Handyman Marketplace</title>
+
+  <style>
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      color: #17324d;
+
+      background: #f7fbff;
+
+      line-height: 1.6;
+
+    }
+
+    header {
+
+      background: #ffffff;
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 100;
+
+      border-bottom: 1px solid #dceaf7;
+
+    }
+
+    .nav {
+
+      max-width: 1180px;
+
+      margin: auto;
+
+      padding: 14px 22px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 18px;
+
+    }
+
+    .brand {
+
+      font-size: 22px;
+
+      font-weight: 800;
+
+      color: #0878d1;
+
+    }
+
+    select {
+
+      padding: 9px 12px;
+
       border-radius: 10px;
+
+      border: 1px solid #b7cee3;
+
+      background: white;
+
+      color: #17324d;
+
+      font-size: 15px;
+
+    }
+
+    .hero {
+
+      background: linear-gradient(145deg, #eaf6ff, #ffffff);
+
+      text-align: center;
+
+      padding: 85px 20px 75px;
+
+    }
+
+    .hero h1 {
+
+      margin: 0 auto 18px;
+
+      max-width: 900px;
+
+      font-size: clamp(38px, 6vw, 68px);
+
+      line-height: 1.08;
+
+      color: #096fc0;
+
+    }
+
+    .hero p {
+
+      max-width: 790px;
+
+      margin: 0 auto 28px;
+
+      font-size: 20px;
+
+      color: #405b72;
+
+    }
+
+    .buttons {
+
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 12px;
+
+    }
+
+    .button {
+
+      display: inline-block;
+
+      padding: 13px 22px;
+
+      border-radius: 12px;
+
+      text-decoration: none;
+
+      background: #0878d1;
+
+      color: white;
+
+      font-weight: 700;
+
+    }
+
+    .button.secondary {
+
+      background: white;
+
+      color: #0878d1;
+
+      border: 2px solid #0878d1;
+
+    }
+
+    section { padding: 65px 20px; }
+
+    .container {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+    }
+
+    h2 {
+
+      text-align: center;
+
+      color: #096fc0;
+
+      font-size: 34px;
+
+      margin: 0 0 12px;
+
+    }
+
+    .intro {
+
+      text-align: center;
+
+      max-width: 780px;
+
+      margin: 0 auto 38px;
+
+      color: #587086;
+
+      font-size: 18px;
+
+    }
+
+    .grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      gap: 20px;
+
+    }
+
+    .card {
+
+      background: white;
+
+      padding: 27px;
+
+      border-radius: 18px;
+
+      box-shadow: 0 7px 25px rgba(34, 93, 140, 0.09);
+
+    }
+
+    .card .icon {
+
+      font-size: 32px;
+
+      margin-bottom: 10px;
+
+    }
+
+    .card h3 {
+
+      margin: 0 0 8px;
+
+      color: #155f9b;
+
+    }
+
+    .alt { background: #edf7ff; }
+
+    .steps { counter-reset: step; }
+
+    .steps .card::before {
+
+      counter-increment: step;
+
+      content: counter(step);
+
+      display: inline-flex;
+
+      width: 38px;
+
+      height: 38px;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #0878d1;
+
+      color: white;
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+    }
+
+    .premium {
+
+      background: linear-gradient(135deg, #0878d1, #07558f);
+
+      color: white;
+
+      border-radius: 24px;
+
+      padding: 45px;
+
+      text-align: center;
+
+    }
+
+    .premium h2 { color: white; }
+
+    .premium p {
+
+      max-width: 800px;
+
+      margin: 12px auto 0;
+
+      font-size: 18px;
+
+    }
+
+    .download { text-align: center; }
+
+    footer {
+
+      background: #102d45;
+
+      color: #d8e7f3;
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+    }
+
+    footer a {
+
+      color: white;
+
+      margin: 0 10px;
+
+    }
+
+    @media (max-width: 800px) {
+
+      .grid { grid-template-columns: 1fr; }
+
+      .nav { align-items: flex-start; }
+
+      .brand { font-size: 18px; }
+
+      .hero { padding-top: 60px; }
+
+      .premium { padding: 30px 20px; }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header>
+
+  <div class="nav">
+
+    <div class="brand"><img src="WhatsApp Image 2026-09-26 at 11.40.13 AM.jpeg" alt="Handyman Marketplace logo" style="width:42px;height:42px;border-radius:10px;object-fit:cover;vertical-align:middle;margin-right:10px;">Handyman Marketplace</div>
+
+    <select id="language" onchange="setLanguage(this.value)" aria-label="Language">
+
+      <option value="en">English</option>
+
+      <option value="zh">中文</option>
+
+      <option value="ms">Bahasa Melayu</option>
+
+      <option value="id">Bahasa Indonesia</option>
+
+      <option value="hi">हिन्दी</option>
+
+      <option value="es">Español</option>
+
+      <option value="pt">Português</option>
+
+      <option value="ar">العربية</option>
+
+      <option value="vi">Tiếng Việt</option>
+
+      <option value="th">ไทย</option>
+
+      <option value="ja">日本語</option>
+
+      <option value="ko">한국어</option>
+
+      <option value="fr">Français</option>
+
+      <option value="de">Deutsch</option>
+
+    </select>
+
+  </div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+  <h1 data-t="heroTitle">Smarter Home Repairs with AI</h1>
+
+  <p data-t="heroText">Describe your problem by text or voice, add photos or video, and let Handyman Marketplace help you understand the problem, decide whether DIY is possible, or find the right professional.</p>
+
+  <div class="buttons">
+
+    <a class="button" href="#download" data-t="download">Download the App</a>
+
+    <a class="button secondary" href="#how" data-t="howButton">See How It Works</a>
+
+  </div>
+
+</section>
+
+<section id="how">
+
+  <div class="container">
+
+    <h2 data-t="howTitle">How It Works</h2>
+
+    <p class="intro" data-t="howIntro">From a problem to a practical next step in minutes.</p>
+
+    <div class="grid steps">
+
+      <div class="card">
+
+        <h3 data-t="step1Title">Describe the problem</h3>
+
+        <p data-t="step1Text">Use text or voice and add a photo or video when useful.</p>
+
+      </div>
+
+      <div class="card">
+
+        <h3 data-t="step2Title">Get AI guidance</h3>
+
+        <p data-t="step2Text">Understand the likely problem, suitable service category, safety considerations and whether DIY may be possible.</p>
+
+      </div>
+
+      <div class="card">
+
+        <h3 data-t="step3Title">Take action</h3>
+
+        <p data-t="step3Text">Follow DIY guidance or find and compare suitable professionals.</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <h2>See Handyman Marketplace in Action</h2>
+
+    <p class="intro">AI assessment, provider search and Community — all in one app.</p>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <img src="02_tablet_ai_assessment_2160x3840.png" alt="Handyman Marketplace AI Assessment" style="width:100%; border-radius:12px;">
+
+        <h3>AI Assessment</h3>
+
+      </div>
+
+      <div class="card">
+
+        <img src="03_tablet_provider_search_2160x3840.png" alt="Handyman Marketplace Provider Search" style="width:100%; border-radius:12px;">
+
+        <h3>Find the Right Professional</h3>
+
+      </div>
+
+      <div class="card">
+
+        <img src="04_tablet_community_2160x3840.png" alt="Handyman Marketplace Community" style="width:100%; border-radius:12px;">
+
+        <h3>Community</h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="alt">
+
+  <div class="container">
+
+    <h2 data-t="featuresTitle">Built to Help You Make Better Decisions</h2>
+
+    <p class="intro" data-t="featuresIntro">Useful information before you decide what to do or who to contact.</p>
+
+    <div class="grid">
+
+      <div class="card">
+
+        <div class="icon">🤖</div>
+
+        <h3 data-t="f1Title">AI Assessment</h3>
+
+        <p data-t="f1Text">Use text, voice, photos and video to help assess repair and maintenance problems.</p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="icon">🛠️</div>
+
+        <h3 data-t="f2Title">DIY Guidance</h3>
+
+        <p data-t="f2Text">When appropriate, receive practical steps, tools and safety guidance.</p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="icon">👷</div>
+
+        <h3 data-t="f3Title">Find the Right Professional</h3>
+
+        <p data-t="f3Text">Identify the appropriate type of handyman or service provider for the job.</p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="icon">💰</div>
+
+        <h3 data-t="f4Title">Market Price Guidance</h3>
+
+        <p data-t="f4Text">Get AI-estimated market-price guidance to help you evaluate quotations.</p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="icon">⚖️</div>
+
+        <h3 data-t="f5Title">Compare Providers</h3>
+
+        <p data-t="f5Text">Compare useful provider information and quotations before making your choice.</p>
+
+      </div>
+
+      <div class="card">
+
+        <div class="icon">🌍</div>
+
+        <h3 data-t="f6Title">Community</h3>
+
+        <p data-t="f6Text">Ask questions, share DIY tips, post before-and-after projects and read community reviews.</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section>
+
+  <div class="container">
+
+    <div class="premium">
+
+      <h2 data-t="premiumTitle">Free to Start. More Power with Premium.</h2>
+
+      <p data-t="premiumText">Start with preliminary assistance. Premium unlocks Advanced AI Assessment, detailed DIY guidance, provider information, comparison features and AI credits.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="download" class="download alt">
+
+  <div class="container">
+
+    <h2 data-t="downloadTitle">Get Handyman Marketplace</h2>
+
+    <p class="intro" data-t="downloadText">Available now for Android. The iPhone and iPad app is coming soon.</p>
+
+    <div class="buttons">
+
+      <a class="button" href="https://play.google.com/store/apps/details?id=com.myhandymanmarket.app&amp;hl=en" data-t="google">Android — Google Play</a>
+
+      <span class="button secondary" aria-disabled="true" data-t="apple">iPhone / iPad — Coming soon</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+
+  <p>© 2026 Handyman Marketplace</p>
+
+  <p>
+
+    <a href="privacy-policy.html" data-t="privacy">Privacy Policy</a>
+
+    <a href="delete-account.html" data-t="deleteAccount">Delete Account</a>
+
+  </p>
+
+</footer>
+
+<script>
+
+const translations = {
+
+en: {
+
+heroTitle:"Smarter Home Repairs with AI",
+
+heroText:"Describe your problem by text or voice, add photos or video, and let Handyman Marketplace help you understand the problem, decide whether DIY is possible, or find the right professional.",
+
+download:"Download the App", howButton:"See How It Works",
+
+howTitle:"How It Works", howIntro:"From a problem to a practical next step in minutes.",
+
+step1Title:"Describe the problem", step1Text:"Use text or voice and add a photo or video when useful.",
+
+step2Title:"Get AI guidance", step2Text:"Understand the likely problem, suitable service category, safety considerations and whether DIY may be possible.",
+
+step3Title:"Take action", step3Text:"Follow DIY guidance or find and compare suitable professionals.",
+
+featuresTitle:"Built to Help You Make Better Decisions", featuresIntro:"Useful information before you decide what to
 
       border: 1px solid #b7cee3;
 
