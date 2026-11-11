@@ -293,11 +293,12 @@
 
 <section id="download" class="download alt">
   <div class="container">
-    <h2 data-t="downloadTitle">Get Handyman Marketplace</h2>
-    <p class="intro" data-t="downloadText">Available now for Android. The iPhone and iPad app is coming soon.</p>
-    <div class="buttons">
-      <a class="button" href="https://play.google.com/store/apps/details?id=com.myhandymanmarket.app&amp;hl=en" data-t="google">Android — Google Play</a>
-      <span class="button secondary" aria-disabled="true" data-t="apple">iPhone / iPad — Coming soon</span>
+    <h2 data-t="downloadTitle">Get Handyman Marketplace</h2 
+<p class="intro" data-t="downloadText">Available now for Android, iPhone and iPad.</p>
+<div class="buttons">
+  <a class="button" href="https://play.google.com/store/apps/details?id=com.myhandymanmarket.app&amp;hl=en" data-t="google">Android — Google Play</a>
+  <a class="button secondary" href="https://apps.apple.com/sg/app/handyman-marketplace/id6814371379" data-t="apple">iPhone / iPad — App Store</a>
+</div>
     </div>
   </div>
 </section>
@@ -329,8 +330,8 @@ f4Title:"Market Price Guidance", f4Text:"Get AI-estimated market-price guidance 
 f5Title:"Compare Providers", f5Text:"Compare useful provider information and quotations before making your choice.",
 f6Title:"Community", f6Text:"Ask questions, share DIY tips, post before-and-after projects and read community reviews.",
 premiumTitle:"Free to Start. More Power with Premium.", premiumText:"Start with preliminary assistance. Premium unlocks Advanced AI Assessment, detailed DIY guidance, provider information, comparison features and AI credits.",
-downloadTitle:"Get Handyman Marketplace", downloadText:"Available now for Android. The iPhone and iPad app is coming soon.",
-google:"Android — Google Play", apple:"iPhone / iPad — Coming soon", privacy:"Privacy Policy", deleteAccount:"Delete Account"
+downloadText:"Available now for Android, iPhone and iPad.",
+google:"Android — Google Play",apple:"iPhone / iPad — App Store" , privacy:"Privacy Policy", deleteAccount:"Delete Account"
 },
 zh: {
 heroTitle:"用 AI 让家居维修更智能", heroText:"通过文字或语音描述问题，添加照片或视频，让 Handyman Marketplace 帮助您了解问题、判断是否适合自己动手，或寻找合适的专业人员。",
@@ -560,6 +561,9 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-t]").forEach(el => {
     const key = el.getAttribute("data-t");
     if (t[key]) el.textContent = t[key];
+   if (key === "apple") el.textContent = "iPhone / iPad — App Store";
+if (key === "downloadText")
+  el.textContent = "Available now for Android, iPhone and iPad."; 
   });
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
